@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>글 목록 (1/2) · t3b07-ds-coin-guide</title>
+  <meta name="description" content="t3b07-ds-coin-guide에 올라온 글 목록입니다.">
+  <link rel="canonical" href="https://dangsan-info-guide.mapo-room-guide.xyz/posts.html">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <style>
+ /* Reset & Base */
+ *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ html { font-size: 18px; scroll-behavior: smooth; }
+ body {
+ font-family: 'Georgia', 'Times New Roman', 'Palatino Linotype', serif;
+ background-color: #fafaf5;
+ color: #1a1a1a;
+ line-height: 1.8;
+ -webkit-font-smoothing: antialiased;
+ -moz-osx-font-smoothing: grayscale;
+ }
+
+ /* Typography */
+ h1, h2, h3, h4 { font-weight: 400; letter-spacing: 0.05em; }
+ h1 { font-size: 3.2rem; line-height: 1.15; letter-spacing: 0.08em; }
+ h2 { font-size: 2.2rem; line-height: 1.3; letter-spacing: 0.06em; margin-bottom: 1.5rem; }
+ h3 { font-size: 1.5rem; line-height: 1.4; letter-spacing: 0.04em; }
+ p { margin-bottom: 1.2rem; letter-spacing: 0.02em; }
+ a { color: #c5a880; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.3s ease; }
+ a:hover { border-bottom-color: #c5a880; }
+
+ /* Layout */
+ .container {
+ max-width: 720px;
+ margin: 0 auto;
+ padding: 0 72px;
+ }
+
+ /* Header */
+ header {
+ background-color: #1a1a1a;
+ color: #fafaf5;
+ padding: 24px 0;
+ border-bottom: 1px solid #c5a880;
+ position: relative;
+ }
+ .header-inner {
+ max-width: 720px;
+ margin: 0 auto;
+ padding: 0 72px;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ }
+ .logo {
+ font-size: 1.2rem;
+ letter-spacing: 0.15em;
+ text-transform: uppercase;
+ color: #c5a880;
+ border: none;
+ }
+ .logo:hover { border: none; }
+
+ /* Navigation */
+ nav ul {
+ list-style: none;
+ display: flex;
+ gap: 32px;
+ }
+ nav a {
+ color: #fafaf5;
+ font-size: 0.85rem;
+ letter-spacing: 0.1em;
+ text-transform: uppercase;
+ border: none;
+ transition: color 0.3s ease;
+ }
+ nav a:hover { color: #c5a880; border: none; }
+
+ .hamburger {
+ display: none;
+ flex-direction: column;
+ gap: 5px;
+ cursor: pointer;
+ background: none;
+ border: none;
+ padding: 8px;
+ }
+ .hamburger span {
+ display: block;
+ width: 28px;
+ height: 1px;
+ background-color: #fafaf5;
+ transition: all 0.3s ease;
+ }
+
+ /* Mobile Nav */
+ .mobile-nav {
+ display: none;
+ position: absolute;
+ top: 100%;
+ left: 0;
+ right: 0;
+ background-color: #1a1a1a;
+ padding: 24px 72px;
+ border-top: 1px solid #c5a880;
+ z-index: 100;
+ }
+ .mobile-nav.active { display: block; }
+ .mobile-nav ul {
+ list-style: none;
+ display: flex;
+ flex-direction: column;
+ gap: 16px;
+ }
+
+ /* Hero */
+ .hero {
+ background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 40%, #c5a880 100%);
+ color: #fafaf5;
+ padding: 120px 0 96px;
+ text-align: center;
+ position: relative;
+ overflow: hidden;
+ }
+ .hero::before {
+ content: '';
+ position: absolute;
+ top: 0; left: 0; right: 0; bottom: 0;
+ background: linear-gradient(180deg, rgba(26,26,26,0.85) 0%, rgba(26,26,26,0.4) 100%);
+ pointer-events: none;
+ }
+ .hero .container { position: relative; z-index: 1; }
+ .hero h1 { margin-bottom: 24px; }
+ .hero p {
+ font-size: 1.1rem;
+ max-width: 580px;
+ margin: 0 auto 32px;
+ opacity: 0.9;
+ letter-spacing: 0.04em;
+ }
+ .hero .cta {
+ display: inline-block;
+ padding: 14px 48px;
+ border: 1px solid #c5a880;
+ color: #c5a880;
+ font-size: 0.9rem;
+ letter-spacing: 0.15em;
+ text-transform: uppercase;
+ transition: all 0.4s ease;
+ }
+ .hero .cta:hover {
+ background-color: #c5a880;
+ color: #1a1a1a;
+ border-color: #c5a880;
+ }
+
+ /* Sections */
+ section { padding: 120px 0; }
+ section:nth-child(even) { background-color: #f5f5f0; }
+
+ /* Drop Cap */
+ .drop-cap::first-letter {
+ font-size: 4.2rem;
+ float: left;
+ line-height: 0.8;
+ margin-right: 12px;
+ color: #c5a880;
+ font-weight: 400;
+ }
+
+ /* Fine Borders */
+ .border-accent {
+ border-top: 1px solid #c5a880;
+ padding-top: 48px;
+ }
+ .border-bottom {
+ border-bottom: 1px solid #d4d4cf;
+ padding-bottom: 48px;
+ }
+
+ /* Stats */
+ .stats-grid {
+ display: grid;
+ grid-template-columns: repeat(3, 1fr);
+ gap: 48px;
+ margin-top: 48px;
+ }
+ .stat-item {
+ text-align: center;
+ border-right: 1px solid #d4d4cf;
+ padding: 0 24px;
+ }
+ .stat-item:last-child { border-right: none; }
+ .stat-number {
+ font-size: 2.8rem;
+ color: #c5a880;
+ letter-spacing: 0.08em;
+ display: block;
+ margin-bottom: 8px;
+ }
+ .stat-label {
+ font-size: 0.85rem;
+ text-transform: uppercase;
+ letter-spacing: 0.12em;
+ }
+
+ /* Review Cards */
+ .review-grid {
+ display: grid;
+ gap: 48px;
+ margin-top: 48px;
+ }
+ .review-card {
+ border: 1px solid #d4d4cf;
+ padding: 36px;
+ transition: border-color 0.3s ease;
+ }
+ .review-card:hover { border-color: #c5a880; }
+ .review-header {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ margin-bottom: 16px;
+ padding-bottom: 16px;
+ border-bottom: 1px solid #e8e8e3;
+ }
+ .review-author {
+ font-weight: 400;
+ letter-spacing: 0.04em;
+ font-size: 0.95rem;
+ }
+ .review-date {
+ font-size: 0.8rem;
+ color: #8a8a85;
+ letter-spacing: 0.06em;
+ }
+ .review-stars {
+ color: #c5a880;
+ letter-spacing: 0.15em;
+ font-size: 1rem;
+ margin-bottom: 12px;
+ }
+ .review-text {
+ font-style: italic;
+ line-height: 1.9;
+ letter-spacing: 0.02em;
+ }
+
+ /* Features */
+ .feature-list {
+ list-style: none;
+ margin-top: 36px;
+ }
+ .feature-list li {
+ padding: 16px 0;
+ border-bottom: 1px solid #e8e8e3;
+ display: flex;
+ gap: 16px;
+ align-items: baseline;
+ }
+ .feature-list li::before {
+ content: '◆';
+ color: #c5a880;
+ font-size: 0.7rem;
+ }
+
+ /* Footer */
+ footer {
+ background-color: #1a1a1a;
+ color: #fafaf5;
+ padding: 72px 0;
+ border-top: 1px solid #c5a880;
+ }
+ footer .container {
+ display: flex;
+ flex-direction: column;
+ gap: 24px;
+ }
+ footer a { color: #c5a880; }
+ .footer-info {
+ display: flex;
+ justify-content: space-between;
+ font-size: 0.85rem;
+ letter-spacing: 0.04em;
+ opacity: 0.8;
+ }
+ .copyright {
+ text-align: center;
+ font-size: 0.75rem;
+ letter-spacing: 0.08em;
+ text-transform: uppercase;
+ opacity: 0.6;
+ margin-top: 24px;
+ padding-top: 24px;
+ border-top: 1px solid rgba(197,168,128,0.3);
+ }
+
+ /* Responsive */
+ @media (max-width: 768px) {
+ .container { padding: 0 24px; }
+ .header-inner { padding: 0 24px; }
+ .mobile-nav { padding: 24px; }
+
+ h1 { font-size: 2.2rem; }
+ h2 { font-size: 1.6rem; }
+ section { padding: 72px 0; }
+ .hero { padding: 80px 0 64px; }
+
+ .stats-grid { grid-template-columns: 1fr; gap: 24px; }
+ .stat-item { border-right: none; border-bottom: 1px solid #d4d4cf; padding-bottom: 24px; }
+ .stat-item:last-child { border-bottom: none; }
+
+ nav ul { display: none; }
+ .hamburger { display: flex; }
+
+ .footer-info { flex-direction: column; gap: 8px; text-align: center; }
+ .review-card { padding: 24px; }
+ }
+
+ @media (min-width: 769px) {
+ .mobile-nav { display: none !important; }
+ }
+ </style>
+  <meta property="og:title" content="글 목록 (1/2) · t3b07-ds-coin-guide">
+  <meta property="og:description" content="t3b07-ds-coin-guide에 올라온 글 목록입니다.">
+  <meta property="og:url" content="https://dangsan-info-guide.mapo-room-guide.xyz/posts.html">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+</head>
+<body>
+  <div class="container">
+    <header>
+ <div class="header-inner">
+ <a href="/" class="logo">당산 코인노래방</a>
+ <nav>
+ <ul>
+ <li><a href="#about">소개</a></li>
+ <li><a href="#reviews">리뷰</a></li>
+ <li><a href="#guide">가이드</a></li>
+ 
+ </ul>
+ </nav>
+ <button class="hamburger" onclick="toggleMobileNav()" aria-label="메뉴 열기">
+ 
+ 
+ 
+ </button>
+ </div>
+ <div class="mobile-nav" id="mobileNav">
+ <ul>
+ <li><a href="#about" onclick="closeMobileNav()">소개</a></li>
+ <li><a href="#reviews" onclick="closeMobileNav()">리뷰</a></li>
+ <li><a href="#guide" onclick="closeMobileNav()">가이드</a></li>
+ 
+ </ul>
+ </div>
+ </header>
+    <main>
+      <h1>글 목록</h1>
+      <p>전체 38개 · 1/2 페이지</p>
+      <ul class="post-list">
+      <li class="post-item">
+        <a class="post-item__link" href="posts/checklist-002-1btwj2a.html">당산 코인노래방 가이드 선택 전에 확인할 체크리스트와 실패 사례</a>
+        <p class="post-item__summary">당산 지역에서 즐거운 여가 시간을 보내기 위해 코인노래방을 찾는 분들이 늘고 있습니다. 하지만 무작정 방문하기보다는 쾌적한 환경에서 노래를 즐기기 위해 몇 가지 사항을 미리 확인하는 것이 좋습니다.</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0392.html">당산 코인노래방 가이드 대신 찾아보는 동대문 마사지 접근성 정보</a>
+        <p class="post-item__summary">서울 내에서 당산 코인노래방 가이드 같은 정보가 필요한 상황만큼이나, 동대문 인근의 피로 관리 시설을 찾는 수요도 꾸준합니다. 접근성이 좋은 매장을 찾기 위해서는 다음 체크리스트를 활용하여 이동 동</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0393.html">당산 코인노래방 가이드 활용한 마포/합정 인디 소셜 라운지 가이드와 프라이빗 소인원 파티</a>
+        <p class="post-item__summary">친구들과 즉흥적으로 모임을 기획하다 보면 당산 코인노래방 가이드 같은 익숙한 장소를 떠올리기 쉽습니다. 하지만 가끔은 조금 더 밀도 있는 대화와 특별한 공간이 필요할 때가 분명 존재합니다. 단순히 </p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0394.html">당산 코인노래방 가이드처럼 보는 지수 성장 클리닉 정보</a>
+        <p class="post-item__summary">웹사이트 운영을 처음 시작할 때 흔히 저지르는 오해 중 하나는 무조건 많은 외부 링크를 확보하는 것이 능사라는 생각입니다. 마치 당산 코인노래방 가이드가 단순한 방문객 유치에 집중하는 것과 달리, </p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0395.html">당산 코인노래방 가이드와 비교하는 마포 홍대 로컬 럭셔리 밤문화 가이드 및 소셜 밤문화</a>
+        <p class="post-item__summary">성공적인 밤문화를 즐기기 위해서는 몇 가지 필수적인 충족 조건들이 있습니다. 우선 장소의 접근성과 인원 구성, 그리고 해당 공간이 제공하는 분위기가 조화를 이루어야 합니다. 당산 코인노래방 가이드와</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0396.html">당산 코인노래방 가이드 스타일의 마포 유흥 투명 정찰제 가격 정보 디렉토리 및 가격 감시</a>
+        <p class="post-item__summary">여러분은 유흥 업소를 방문할 때 가장 먼저 무엇을 확인하시나요. 당산 코인노래방 가이드처럼 가격이 명확히 게시된 곳과 달리, 일부 유흥 시설은 가격 정보가 불투명하여 이용객들의 불안을 야기하기도 합</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0397.html">당산 코인노래방 가이드 활용한 구글 알고리즘 감점 치료 및 백링크 수술실 전략</a>
+        <p class="post-item__summary">당산 코인노래방 가이드 정보를 찾다 보면 방문객이 남긴 후기의 진실성을 먼저 판별해야 합니다. 무분별하게 생성된 긍정적 후기는 알고리즘의 감시망에 걸려 오히려 사이트 지수를 떨어뜨리는 주범이 되기도</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0398.html">당산 코인노래방 가이드 비교하는 마포 럭셔리 단체 가라오케 예약 가이드 정리</a>
+        <p class="post-item__summary">당산 코인노래방 가이드 방식과 차별화되는 대규모 VIP 단체 모임은 공간의 품격과 서비스의 질이 결정을 좌우합니다. 단순히 노래를 부르는 환경을 넘어 비즈니스 미팅이나 중요한 사교 모임을 위한 장소</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0399.html">당산 코인노래방 가이드 예약 실패 분석과 마르지 않는 1급수 백링크 주스 공급 서비스</a>
+        <p class="post-item__summary">당산 코인노래방 가이드 정보를 확인하고도 막상 현장에 도착해 이용에 실패하는 경우가 종종 발생합니다. 예약 절차를 제대로 숙지하지 못했거나, 인기 시간대의 경쟁 상황을 미리 예측하지 못한 것이 주요</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0400.html">당산 코인노래방 가이드 체크리스트 기반의 4</a>
+        <p class="post-item__summary">당산 코인노래방 가이드 정보를 활용할 때 위치와 접근성은 이용 만족도를 결정짓는 필수 항목입니다. 지하철역 출구와의 거리, 주차 가능 여부, 주변 상권과의 연계성을 확인하는 것은 무인 매장 운영에서</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0401.html">당산 코인노래방 가이드 활용한 마포 셔츠룸 예약 시 눈탱이 피하는 법</a>
+        <p class="post-item__summary">번화가를 방문했다가 예상치 못한 고액의 결제 요구를 받은 경험이 있으신가요. 당산 코인노래방 가이드를 확인하듯 유흥 시설을 이용할 때도 철저한 사전 조사가 필수입니다. 특히 초기 방문객들은 현장 상</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0402.html">당산 코인노래방 가이드와 구글 봇 정밀 검진 및 크롤 버짓 밀착 간호</a>
+        <p class="post-item__summary">검색 엔진 최적화가 단순히 많은 링크를 거는 것이라고 생각하는 분들이 많습니다. 하지만 당산 코인노래방 가이드를 읽어내리는 방식처럼 검색 엔진도 웹사이트의 정보를 체계적으로 수집하는 고유한 규칙을 </p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0403.html">당산 코인노래방 가이드로 확인하는 성공적인 셔츠룸 예약 방법</a>
+        <p class="post-item__summary">모임의 규모가 커질수록 공간의 확보와 편의 시설 구성은 이용 만족도를 결정짓는 중요한 요소가 됩니다. 당산 코인노래방 가이드를 통해 작은 공간의 효율성을 배우셨다면, 이제는 본격적인 규모의 서비스 </p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0404.html">당산 코인노래방 가이드 및 마포 단체 회식용 대형 룸 노래방 가격 정보</a>
+        <p class="post-item__summary">직장 동료들과 업무를 마치고 어떤 장소에서 마무리를 할지 고민해 본 적이 있으신가요. 당산 코인노래방 가이드를 참조해 평소 가볍게 즐기던 곳과는 달리, 마포 지역의 단체 회식 장소는 훨씬 세심한 검</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0405.html">당산 코인노래방 가이드 활용해 신뢰도 높은 셔츠룸 사이트 판별법</a>
+        <p class="post-item__summary">당산 코인노래방 가이드를 찾는 이들이 점차 늘어나면서, 엔터테인먼트 공간을 선택할 때 필요한 정보 검증 과정의 중요성이 대두되고 있습니다. 단순히 위치만 확인하는 것이 아니라, 제공되는 서비스의 본</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0406.html">당산 코인노래방 가이드 활용법 및 홍대 단체 예약 전략 비교</a>
+        <p class="post-item__summary">가벼운 마음으로 방문하는 당산 코인노래방 가이드 정보는 짧은 시간 즐기기에 적합한 선택지를 제시합니다. 소규모 인원이 방문하여 곡 단위로 결제하는 방식은 비용 효율성을 극대화할 수 있는 가장 간편한</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0407.html">당산 코인노래방 가이드와 비교한 구글 알고리즘 고신용 도메인 보증</a>
+        <p class="post-item__summary">당산 코인노래방 가이드를 검색하다 보면 온라인 서비스의 접근성과 안정성이 얼마나 중요한지 깨닫게 됩니다. 웹사이트를 운영하거나 서비스를 이용하는 과정에서 발생하는 가장 흔한 실패는 도메인의 신뢰도를</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260719-0408.html">당산 코인노래방 가이드처럼 보는 합정 셔츠룸 단골들이 뽑은 핫플</a>
+        <p class="post-item__summary">당산 코인노래방 가이드를 통해 지역의 주요 시설을 익히셨다면, 이제 조금 더 깊이 있는 장소 탐색이 필요합니다. 합정 지역 내에서 주목받는 셔츠룸을 방문할 때는 단순한 소문보다는 단골들의 실제 경험</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260721-0345.html">당산 코인노래방 가이드 따라 구글 틈새 키워드 트래픽 외환 거래 전략</a>
+        <p class="post-item__summary">어느 평일 오후, 평소처럼 당산 코인노래방 가이드를 찾던 직장인 A씨는 예상치 못한 복잡한 이용 규칙 때문에 당황한 경험이 있습니다. 이처럼 사소한 정보 부재는 초행자에게 큰 혼란을 야기하곤 합니다</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/gemini-coverage-20260721-0346.html">당산 코인노래방 가이드 활용한 구글 인덱싱 속도 초고속 광회선 대역폭 최적화</a>
+        <p class="post-item__summary">많은 이들이 웹사이트의 노출 속도를 결정짓는 요소가 단순히 콘텐츠의 질이라고 오해하곤 합니다. 하지만 네트워크 인프라의 물리적 대역폭이 확보되지 않는다면 아무리 정교한 알고리즘도 무용지물에 가깝습니</p>
+      </li>
+      </ul>
+    <nav class="pager">
+      <span class="pager__current">1</span>
+      <a class="pager__link" href="posts-2.html">2</a>
+    </nav>
+    </main>
+  </div>
+</body>
+</html>
